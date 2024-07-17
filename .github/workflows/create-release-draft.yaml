@@ -1,5 +1,6 @@
 name: Create release draft
 on:
+  workflow_dispatch:
   pull_request:
     branches:
     - 'release-*'
