@@ -18,15 +18,15 @@ jobs:
         run: |
           echo version=$(cat VERSION) >> $GITHUB_OUTPUT
 
-      - name: Setup Golang
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.22'
+      # - name: Setup Golang
+      #   uses: actions/setup-go@v5
+      #   with:
+      #     go-version: '1.22'
 
-      - name: Build binaries
-        id: binaries
-        run: |
-          make release-binaries
+      # - name: Build binaries
+      #   id: binaries
+      #   run: |
+      #     make release-binaries
 
       - name: Create release draft
         id: create-release
@@ -35,6 +35,8 @@ jobs:
         run: |
           gh release create "v${{ steps.version.outputs.version }}" \
             --title "v${{ steps.version.outputs.version }}" \
+            --target "${{ github.base_ref }}" \
             --generate-notes \
-            --draft \
-            dist/release/*
+            --draft
+        # \
+        # dist/release/*
